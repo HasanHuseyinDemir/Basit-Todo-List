@@ -8,6 +8,7 @@ eventlisteners(); // uygulama başlayınca aktif olur
 function eventlisteners(){
     form.addEventListener("submit",addNewItem);
     taskList.addEventListener("click",deleteItem);
+    btnDeleteAll.addEventListener("click",deleteAllItems);
 }
 
 function addNewItem(e){ // yeni item eklemeye yarar
@@ -30,11 +31,30 @@ function addNewItem(e){ // yeni item eklemeye yarar
     e.preventDefault(); // formun sürekli submit olmasını engeller
 }
 
-function deleteItem(e){
+function deleteItem(e){ //x tuşuna basılan bütün liste elemanlarını siler
     if(e.target.className==="fas fa-times"){
         e.target.parentElement.parentElement.remove();
         console.log(e.target);
         
     }
+    e.preventDefault();
+}
+
+function deleteAllItems(){
+    //taskList.innerHTML=""; //bu kolay olan yoludur.çünkü html değerlerini tamamen siler.
+
+    if(confirm("are you sure?")){
+
+        /*taskList.childNodes.forEach( //çalışmıyor yarısını siliyor
+            function(item){
+            if(item.nodeType===1){
+                item.remove();
+            }
+        })*/
+        while(taskList.firstChild){ 
+            taskList.firstChild.remove();
+        }
+    }
+    
     e.preventDefault();
 }
