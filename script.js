@@ -2,8 +2,10 @@ const form = document.querySelector("form");
 const input = document.querySelector("#txtTaskName");
 const btnDeleteAll = document.querySelector("#btnDeleteAll");
 const taskList = document.querySelector("#task-list");
+let items;
 
 eventlisteners(); // uygulama başlayınca aktif olur
+loadItems();// local storageden itemleri alır.
 
 function eventlisteners(){
     form.addEventListener("submit",addNewItem);
@@ -11,14 +13,42 @@ function eventlisteners(){
     btnDeleteAll.addEventListener("click",deleteAllItems);
 }
 
-function addNewItem(e){ // yeni item eklemeye yarar
-    if(input.value == ""){  
-        alert("Add New Item"); //burada boş bırakılan input değerini uyarı olarak verir 
-    }
+function loadItems(){
+        items = getItemsFromLS();
+        items.forEach(function (item) {
+            createItem(item);
+        });
+        return items;
+}
 
+function getItemsFromLS(){
+        if(localStorage.getItem('items')===null){
+            items = [];
+        }else{
+            items = JSON.parse(localStorage.getItem('items'));
+        }
+        return items;
+}
+
+function setItemToLS(text){
+        items = getItemsFromLS();
+        items.push(text);
+        localStorage.setItem("items",JSON.stringify(items));
+}
+
+function deleteItemFromLS(text){
+    items = getItemsFromLS();
+    items.forEach(function(item,index){
+        if (item === text){
+        items.splice(index,1);}
+    });
+    localStorage.setItem("items",JSON.stringify(items));
+}
+
+function createItem(text){
     const listeElemani = document.createElement("li");
     listeElemani.className="list-group-item list-group-item-secondary";
-    listeElemani.appendChild(document.createTextNode(input.value)); // input içine yazılan veriyi liste elemanını içine text olarak aktarmış olur.
+    listeElemani.appendChild(document.createTextNode(text)); // input içine yazılan veriyi liste elemanını içine text olarak aktarmış olur.
 
     const aElementi = document.createElement("a"); 
     aElementi.classList="delete-item float-right"; //a nın class ı
@@ -28,6 +58,18 @@ function addNewItem(e){ // yeni item eklemeye yarar
 
     listeElemani.appendChild(aElementi);// burada liste elemanının içine a elementini yerleştirmiş olduk.
     taskList.appendChild(listeElemani); // burada ise liste elemanını listeye eklemiş olduk :) 
+
+}
+
+function addNewItem(e){ // yeni item eklemeye yarar
+    if(input.value == ""){  
+        alert("Add New Item"); //burada boş bırakılan input değerini uyarı olarak verir 
+    }else{
+        createItem(input.value);
+        setItemToLS(input.value);
+        input.value="";// forma yazılanı siler
+    }
+    
     e.preventDefault(); // formun sürekli submit olmasını engeller
 }
 
@@ -35,7 +77,7 @@ function deleteItem(e){ //x tuşuna basılan bütün liste elemanlarını siler
     if(e.target.className==="fas fa-times"){
         e.target.parentElement.parentElement.remove();
         console.log(e.target);
-        
+        deleteItemFromLS(e.target.parentElement.parentElement.textContent);
     }
     e.preventDefault();
 }
@@ -54,6 +96,7 @@ function deleteAllItems(){
         while(taskList.firstChild){ 
             taskList.firstChild.remove();
         }
+        localStorage.clear();
     }
     
     e.preventDefault();
