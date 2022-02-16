@@ -7,7 +7,7 @@ eventlisteners(); // uygulama başlayınca aktif olur
 
 function eventlisteners(){
     form.addEventListener("submit",addNewItem);
-
+    taskList.addEventListener("click",deleteItem);
 }
 
 function addNewItem(e){ // yeni item eklemeye yarar
@@ -28,4 +28,13 @@ function addNewItem(e){ // yeni item eklemeye yarar
     listeElemani.appendChild(aElementi);// burada liste elemanının içine a elementini yerleştirmiş olduk.
     taskList.appendChild(listeElemani); // burada ise liste elemanını listeye eklemiş olduk :) 
     e.preventDefault(); // formun sürekli submit olmasını engeller
+}
+
+function deleteItem(e){
+    if(e.target.className==="fas fa-times"){
+        e.target.parentElement.parentElement.remove();
+        console.log(e.target);
+        
+    }
+    e.preventDefault();
 }
