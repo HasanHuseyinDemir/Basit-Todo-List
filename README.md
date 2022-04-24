@@ -1,5 +1,5 @@
 # Todo-List
-Sadık Turan Adlı Hocanın Dersinden Örnek Alınarak Yapılmıştır.
+Sadık Turan JavaScript Derslerinden Örnek Alınarak Yapılmıştır.
 
 Local storage kullanan yapılacaklar listesi uygulamasıdır.
 
