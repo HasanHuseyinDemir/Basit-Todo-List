@@ -1,5 +1,4 @@
 # Todo-List
-Sadık Turan JavaScript Derslerinden Örnek Alınarak Yapılmıştır.
 
 Local storage kullanan yapılacaklar listesi uygulamasıdır.
 
