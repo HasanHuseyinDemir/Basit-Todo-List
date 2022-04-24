@@ -12,4 +12,4 @@ Basit bir arayüze sahiptir veritabanı olarak local storage kullanmaktadır, ya
 ## İçeriği Doldurulduğunda
 ![Dolu](https://github.com/HasanHuseyinDemir/Basit-Todo-List/blob/master/info/dolu.jpg)
 
-Denemek için [tıklayın.](https://hasanhuseyindemir.github.io/Todo-List/)
+Denemek için [tıklayın.](https://hasanhuseyindemir.github.io/Basit-Todo-List/)
